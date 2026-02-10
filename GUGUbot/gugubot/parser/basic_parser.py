@@ -35,7 +35,7 @@ class BasicParser(ABC):
         self.server = connector.server
 
     @abstractmethod
-    async def parse(self, raw_message: Any, *args, **kargs) -> Optional[BroadcastInfo]:
+    async def parse(self, raw_message: Any, *args, **kwargs) -> Optional[BroadcastInfo]:
         """解析原始消息。
 
         Parameters
@@ -50,7 +50,7 @@ class BasicParser(ABC):
         """
         raise NotImplementedError
 
-    async def process_message(self, raw_message: Any, *args, **kargs) -> None:
+    async def process_message(self, raw_message: Any, *args, **kwargs) -> None:
         """处理并广播消息。
 
         Parameters
@@ -59,7 +59,7 @@ class BasicParser(ABC):
             需要处理的原始消息
         """
         try:
-            broadcast_info = await self.parse(raw_message, *args, **kargs)
+            broadcast_info = await self.parse(raw_message, *args, **kwargs)
             if broadcast_info is not None and self.system_manager is not None:
                 await self.system_manager.broadcast_command(broadcast_info)
         except Exception as e:
