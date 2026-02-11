@@ -13,7 +13,6 @@ from pathlib import Path
 from typing import Dict, List, Optional
 
 import requests
-
 from mcdreforged.api.types import PluginServerInterface
 
 from gugubot.builder import MessageBuilder
@@ -540,7 +539,7 @@ class InactiveCheckSystem(BasicConfig, BasicSystem):
 
                     # 检查玩家是否是管理员或在管理群中，如果是则跳过
                     if any(
-                        str(qq_account) in skip_user_ids for qq_account in qq_accounts
+                            str(qq_account) in skip_user_ids for qq_account in qq_accounts
                     ):
                         self.logger.debug(
                             f"玩家 {player.name} 是管理员或在管理群中，跳过不活跃检查"
@@ -552,8 +551,8 @@ class InactiveCheckSystem(BasicConfig, BasicSystem):
                         # 检查玩家的所有名称（Java和Bedrock）是否在活跃白名单中
                         player_names = player.java_name + player.bedrock_name
                         if any(
-                            self.active_whitelist_system.is_in_whitelist(name)
-                            for name in player_names
+                                self.active_whitelist_system.is_in_whitelist(name)
+                                for name in player_names
                         ):
                             self.logger.debug(
                                 f"玩家 {player.name} 在活跃白名单中，跳过不活跃检查"
@@ -724,7 +723,7 @@ class InactiveCheckSystem(BasicConfig, BasicSystem):
         return inactive_players_dict
 
     async def _send_notification(
-        self, inactive_players_dict: Dict[int, Dict[str, List[Dict]]]
+            self, inactive_players_dict: Dict[int, Dict[str, List[Dict]]]
     ) -> None:
         """发送通知到配置的目标
 
@@ -935,9 +934,9 @@ class InactiveCheckSystem(BasicConfig, BasicSystem):
 
                 # 检查依赖
                 if (
-                    not self.qq_connector
-                    or not self.bound_system
-                    or not self.whitelist_system
+                        not self.qq_connector
+                        or not self.bound_system
+                        or not self.whitelist_system
                 ):
                     self.logger.warning("依赖系统未初始化，跳过本次检查")
                     continue

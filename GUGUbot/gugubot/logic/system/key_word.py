@@ -2,13 +2,12 @@
 import asyncio
 import copy
 import hashlib
-
 from pathlib import Path
 from typing import Dict, Optional
 
 from mcdreforged.api.types import PluginServerInterface
 
-from gugubot.builder import MessageBuilder, McMessageBuilder
+from gugubot.builder import McMessageBuilder, MessageBuilder
 from gugubot.config import BasicConfig
 from gugubot.logic.system.basic_system import BasicSystem
 from gugubot.utils.types import BroadcastInfo, ProcessedInfo

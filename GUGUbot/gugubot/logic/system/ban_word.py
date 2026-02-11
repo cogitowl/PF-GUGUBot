@@ -18,7 +18,7 @@ class BanWordSystem(BasicConfig, BasicSystem):
     """
 
     def __init__(
-        self, server: PluginServerInterface, config: Optional[BotConfig] = None
+            self, server: PluginServerInterface, config: Optional[BotConfig] = None
     ) -> None:
         """初始化违禁词系统。"""
         BasicSystem.__init__(self, "ban_words", enable=False, config=config)

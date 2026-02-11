@@ -33,7 +33,7 @@ class StartupCommandSystem(BasicConfig, BasicSystem):
     """
 
     def __init__(
-        self, server: PluginServerInterface, config: Optional[BotConfig] = None
+            self, server: PluginServerInterface, config: Optional[BotConfig] = None
     ) -> None:
         """初始化启动指令系统。"""
         BasicSystem.__init__(self, "startup_command", enable=True, config=config)

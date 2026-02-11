@@ -94,7 +94,7 @@ style_help = """风格指令如下：
 #风格 列表   -> 风格列表
 #风格 <风格> -> 切换至指定风格"""
 
-uuid_help ="""uuid匹配指令如下：
+uuid_help = """uuid匹配指令如下：
 #uuid        -> 查看uuid相关帮助
 #uuid 列表   -> 查看uuid绑定表
 #uuid 重载 -> 重新匹配uuid

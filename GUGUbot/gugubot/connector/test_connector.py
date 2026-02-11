@@ -1,8 +1,8 @@
 import logging
 from typing import Any, Optional
 
-from gugubot.connector.basic_connector import BasicConnector, BroadcastInfo
 from gugubot.config import BotConfig
+from gugubot.connector.basic_connector import BasicConnector, BroadcastInfo
 
 
 class TestConnector(BasicConnector):
@@ -19,10 +19,10 @@ class TestConnector(BasicConnector):
     """
 
     def __init__(
-        self,
-        server: Any,
-        config: BotConfig = None,
-        logger: Optional[logging.Logger] = None,
+            self,
+            server: Any,
+            config: BotConfig = None,
+            logger: Optional[logging.Logger] = None,
     ) -> None:
         """初始化TEST连接器。
 

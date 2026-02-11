@@ -16,9 +16,8 @@ from gugubot.utils.types import ProcessedInfo
 
 
 def create_on_player_join(
-    connector_manager: ConnectorManager, config: BotConfig
+        connector_manager: ConnectorManager, config: BotConfig
 ) -> Callable[[PluginServerInterface, Info], None]:
-
     # 从配置文件读取Minecraft的source_name作为默认排除项
     minecraft_source_name = config.get_keys(
         ["connector", "minecraft", "source_name"], "Minecraft"
@@ -46,12 +45,12 @@ def create_on_player_join(
         is_player = not is_bot(player_name, config)
 
         if (
-            is_player
-            and not config.get_keys(
-                ["connector", "minecraft", "player_join_notice"], True
-            )
-            or not is_player
-            and not config.get_keys(["connector", "minecraft", "bot_join_notice"], True)
+                is_player
+                and not config.get_keys(
+            ["connector", "minecraft", "player_join_notice"], True
+        )
+                or not is_player
+                and not config.get_keys(["connector", "minecraft", "bot_join_notice"], True)
         ):
             return
 
@@ -89,9 +88,8 @@ def create_on_player_join(
 
 
 def create_on_player_left(
-    connector_manager: ConnectorManager, config: BotConfig
+        connector_manager: ConnectorManager, config: BotConfig
 ) -> Callable[[PluginServerInterface, Info], None]:
-
     # 从配置文件读取Minecraft的source_name作为默认排除项
     minecraft_source_name = config.get_keys(
         ["connector", "minecraft", "source_name"], "Minecraft"
@@ -119,12 +117,12 @@ def create_on_player_left(
         is_player = not is_bot(player_name, config)
 
         if (
-            is_player
-            and not config.get_keys(
-                ["connector", "minecraft", "player_left_notice"], True
-            )
-            or not is_player
-            and not config.get_keys(["connector", "minecraft", "bot_left_notice"], True)
+                is_player
+                and not config.get_keys(
+            ["connector", "minecraft", "player_left_notice"], True
+        )
+                or not is_player
+                and not config.get_keys(["connector", "minecraft", "bot_left_notice"], True)
         ):
             return
 

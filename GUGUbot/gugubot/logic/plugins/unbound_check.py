@@ -303,8 +303,8 @@ class UnboundCheckSystem(BasicConfig, BasicSystem):
                     )
 
                     if (
-                        not member_list_result
-                        or member_list_result.get("status") != "ok"
+                            not member_list_result
+                            or member_list_result.get("status") != "ok"
                     ):
                         self.logger.warning(f"获取群 {group_id} 成员列表失败")
                         continue
@@ -363,7 +363,7 @@ class UnboundCheckSystem(BasicConfig, BasicSystem):
         return unbound_users_dict
 
     async def _send_notification(
-        self, unbound_users_dict: Dict[int, List[Dict]]
+            self, unbound_users_dict: Dict[int, List[Dict]]
     ) -> None:
         """发送通知到配置的目标
 
@@ -411,16 +411,16 @@ class UnboundCheckSystem(BasicConfig, BasicSystem):
 
                 # 构建完整消息
                 notification_msg = (
-                    self.get_tr("notification_title")
-                    + "\n"
-                    + self.get_tr(
-                        "notification_group",
-                        group_name=group_name,
-                        group_id=group_id,
-                        count=len(unbound_users),
-                        days=timeout_days,
-                        user_list=user_list_str,
-                    )
+                        self.get_tr("notification_title")
+                        + "\n"
+                        + self.get_tr(
+                    "notification_group",
+                    group_name=group_name,
+                    group_id=group_id,
+                    count=len(unbound_users),
+                    days=timeout_days,
+                    user_list=user_list_str,
+                )
                 )
 
                 # 发送到私聊管理员

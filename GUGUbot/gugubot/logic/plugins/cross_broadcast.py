@@ -41,7 +41,7 @@ class CrossBroadcastSystem(BasicSystem):
         command_prefix = self.config.get("GUGUBot", {}).get("command_prefix", "#")
         mc_cmd = self.config.get_keys(["system", "cross_broadcast", "mc_command"], "mc")
 
-        if source_name == qq_source and text.startswith(command_prefix+mc_cmd):
+        if source_name == qq_source and text.startswith(command_prefix + mc_cmd):
             remaining = self._strip_command(broadcast_info.message, command_prefix + mc_cmd)
             return await self._broadcast_to_mc(broadcast_info, remaining)
 
@@ -68,7 +68,7 @@ class CrossBroadcastSystem(BasicSystem):
         return result
 
     async def _broadcast_to_mc(
-        self, broadcast_info: BroadcastInfo, message: list
+            self, broadcast_info: BroadcastInfo, message: list
     ) -> bool:
         mc_source = self.config.get_keys(["connector", "minecraft", "source_name"], "Minecraft")
         connector = self.system_manager.connector_manager.get_connector(mc_source)
@@ -91,7 +91,7 @@ class CrossBroadcastSystem(BasicSystem):
         return True
 
     async def _broadcast_to_qq(
-        self, broadcast_info: BroadcastInfo, message: list
+            self, broadcast_info: BroadcastInfo, message: list
     ) -> bool:
         qq_source = self.config.get_keys(["connector", "QQ", "source_name"], "QQ")
         connector = self.system_manager.connector_manager.get_connector(qq_source)

@@ -30,10 +30,10 @@ class StyleSystem(BasicSystem):
     """
 
     def __init__(
-        self,
-        server: PluginServerInterface,
-        style_manager,
-        config: Optional[BotConfig] = None,
+            self,
+            server: PluginServerInterface,
+            style_manager,
+            config: Optional[BotConfig] = None,
     ) -> None:
         """初始化风格系统。
 
@@ -152,7 +152,7 @@ class StyleSystem(BasicSystem):
         await self.reply(broadcast_info, [MessageBuilder.text(msg)])
 
     async def _handle_switch(
-        self, broadcast_info: BroadcastInfo, style_name: str
+            self, broadcast_info: BroadcastInfo, style_name: str
     ) -> None:
         """切换到指定风格
 

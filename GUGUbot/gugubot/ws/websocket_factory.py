@@ -18,13 +18,13 @@ class WebSocketFactory:
 
     @staticmethod
     def create_client(
-        url: str,
-        token: Optional[str] = None,
-        on_message: Optional[Callable] = None,
-        on_open: Optional[Callable] = None,
-        on_error: Optional[Callable] = None,
-        on_close: Optional[Callable] = None,
-        logger: Optional[logging.Logger] = None,
+            url: str,
+            token: Optional[str] = None,
+            on_message: Optional[Callable] = None,
+            on_open: Optional[Callable] = None,
+            on_error: Optional[Callable] = None,
+            on_close: Optional[Callable] = None,
+            logger: Optional[logging.Logger] = None,
     ) -> WebSocketClient:
         """创建WebSocket客户端
 
@@ -64,12 +64,12 @@ class WebSocketFactory:
 
     @staticmethod
     def create_server(
-        host: str = "0.0.0.0",
-        port: int = 8787,
-        on_message: Optional[Callable] = None,
-        on_client_connect: Optional[Callable] = None,
-        on_client_disconnect: Optional[Callable] = None,
-        logger: Optional[logging.Logger] = None,
+            host: str = "0.0.0.0",
+            port: int = 8787,
+            on_message: Optional[Callable] = None,
+            on_client_connect: Optional[Callable] = None,
+            on_client_disconnect: Optional[Callable] = None,
+            logger: Optional[logging.Logger] = None,
     ) -> WebSocketServer:
         """创建WebSocket服务器
 
@@ -104,11 +104,11 @@ class WebSocketFactory:
 
     @staticmethod
     def create_bridge_server(
-        config: Any,
-        on_message: Optional[Callable] = None,
-        on_client_connect: Optional[Callable] = None,
-        on_client_disconnect: Optional[Callable] = None,
-        logger: Optional[logging.Logger] = None,
+            config: Any,
+            on_message: Optional[Callable] = None,
+            on_client_connect: Optional[Callable] = None,
+            on_client_disconnect: Optional[Callable] = None,
+            logger: Optional[logging.Logger] = None,
     ) -> WebSocketServer:
         """根据配置创建桥接服务器
 
@@ -148,12 +148,12 @@ class WebSocketFactory:
 
     @staticmethod
     def create_bridge_client(
-        config: Any,
-        on_message: Optional[Callable] = None,
-        on_open: Optional[Callable] = None,
-        on_error: Optional[Callable] = None,
-        on_close: Optional[Callable] = None,
-        logger: Optional[logging.Logger] = None,
+            config: Any,
+            on_message: Optional[Callable] = None,
+            on_open: Optional[Callable] = None,
+            on_error: Optional[Callable] = None,
+            on_close: Optional[Callable] = None,
+            logger: Optional[logging.Logger] = None,
     ) -> WebSocketClient:
         """根据配置创建桥接客户端
 

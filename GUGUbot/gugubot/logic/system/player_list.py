@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 """在线玩家列表查询系统。"""
-import re
 import asyncio
+import re
 import time
-from typing import Optional, List, Dict, Any, Tuple
 from enum import Enum
+from typing import Any, Dict, List, Optional, Tuple
 
 from mcdreforged.api.types import PluginServerInterface
 
@@ -27,7 +27,7 @@ class PlayerListSystem(BasicSystem):
     """在线玩家列表系统。"""
 
     def __init__(
-        self, server: PluginServerInterface, config: Optional[BotConfig] = None
+            self, server: PluginServerInterface, config: Optional[BotConfig] = None
     ) -> None:
         super().__init__("list", enable=True, config=config)
         self.server = server
@@ -56,7 +56,7 @@ class PlayerListSystem(BasicSystem):
         return False
 
     def _separate_players_and_bots(
-        self, all_players: List[str]
+            self, all_players: List[str]
     ) -> Tuple[List[str], List[str]]:
         """将玩家列表分离为真实玩家和假人"""
         # 有人绑定 -> 识别假人
@@ -86,27 +86,27 @@ class PlayerListSystem(BasicSystem):
         # 玩家列表触发词
         player_triggers = ["player", "玩家", "在线", "online"]
         if (
-            list_cmd
-            and not list_cmd.startswith("gugubot.")
-            and list_cmd not in player_triggers
+                list_cmd
+                and not list_cmd.startswith("gugubot.")
+                and list_cmd not in player_triggers
         ):
             player_triggers.append(list_cmd)
 
         # 假人列表触发词
         bot_triggers = ["bot", "假人", "机器人"]
         if (
-            bot_cmd
-            and not bot_cmd.startswith("gugubot.")
-            and bot_cmd not in bot_triggers
+                bot_cmd
+                and not bot_cmd.startswith("gugubot.")
+                and bot_cmd not in bot_triggers
         ):
             bot_triggers.append(bot_cmd)
 
         # 服务器状态触发词（显示全部）
         server_triggers = ["server", "服务器", "status", "状态", "all", "全部", "list"]
         if (
-            server_cmd
-            and not server_cmd.startswith("gugubot.")
-            and server_cmd not in server_triggers
+                server_cmd
+                and not server_cmd.startswith("gugubot.")
+                and server_cmd not in server_triggers
         ):
             server_triggers.append(server_cmd)
 
@@ -120,7 +120,7 @@ class PlayerListSystem(BasicSystem):
         return None
 
     async def _reply_to_source(
-        self, broadcast_info: BroadcastInfo, message: List[dict]
+            self, broadcast_info: BroadcastInfo, message: List[dict]
     ) -> None:
         """专用回复方法：只回复到原始消息来源，不转发到 Bridge
 
@@ -199,7 +199,7 @@ class PlayerListSystem(BasicSystem):
         return False
 
     async def _handle_user_list_command(
-        self, broadcast_info: BroadcastInfo, list_type: ListType
+            self, broadcast_info: BroadcastInfo, list_type: ListType
     ) -> None:
         """处理用户的玩家列表查询命令"""
         merge_results = self.config.get_keys(
@@ -221,7 +221,7 @@ class PlayerListSystem(BasicSystem):
                 await self._broadcast_query_to_bridge(broadcast_info, list_type)
 
     async def _handle_merged_list_command(
-        self, broadcast_info: BroadcastInfo, list_type: ListType
+            self, broadcast_info: BroadcastInfo, list_type: ListType
     ) -> None:
         """处理合并多服务器结果的列表查询"""
         try:
@@ -347,7 +347,7 @@ class PlayerListSystem(BasicSystem):
         )
 
     async def _handle_bridge_query(
-        self, broadcast_info: BroadcastInfo, command: str
+            self, broadcast_info: BroadcastInfo, command: str
     ) -> None:
         """处理来自 bridge 的查询请求"""
         try:
@@ -372,7 +372,7 @@ class PlayerListSystem(BasicSystem):
             self.logger.error(f"处理 bridge 查询失败: {e}")
 
     async def _handle_bridge_response(
-        self, broadcast_info: BroadcastInfo, command: str
+            self, broadcast_info: BroadcastInfo, command: str
     ) -> None:
         """处理来自其他服务器的响应"""  # broadcast_info 未使用
         try:
@@ -431,7 +431,7 @@ class PlayerListSystem(BasicSystem):
                 if list_type == ListType.PLAYERS:
                     if players:
                         players.sort()
-                        players_list = [f"  {i+1}. {p}" for i, p in enumerate(players)]
+                        players_list = [f"  {i + 1}. {p}" for i, p in enumerate(players)]
                         result_parts.append(
                             self.get_tr(
                                 "server_players_count",
@@ -448,7 +448,7 @@ class PlayerListSystem(BasicSystem):
                 elif list_type == ListType.BOTS:
                     if bots:
                         bots.sort()
-                        bots_list = [f"  {i+1}. {b}" for i, b in enumerate(bots)]
+                        bots_list = [f"  {i + 1}. {b}" for i, b in enumerate(bots)]
                         result_parts.append(
                             self.get_tr(
                                 "server_bots_count",
@@ -469,7 +469,7 @@ class PlayerListSystem(BasicSystem):
                     if players:
                         players.sort()
                         players_list = [
-                            f"    {i+1}. {p}" for i, p in enumerate(players)
+                            f"    {i + 1}. {p}" for i, p in enumerate(players)
                         ]
                         sub_parts.append(
                             self.get_tr(
@@ -483,7 +483,7 @@ class PlayerListSystem(BasicSystem):
 
                     if bots:
                         bots.sort()
-                        bots_list = [f"    {i+1}. {b}" for i, b in enumerate(bots)]
+                        bots_list = [f"    {i + 1}. {b}" for i, b in enumerate(bots)]
                         sub_parts.append(
                             self.get_tr(
                                 "merged_bots_label",
@@ -552,12 +552,12 @@ class PlayerListSystem(BasicSystem):
             self.logger.error(f"发送合并结果失败: {e}")
 
     async def _broadcast_query_to_bridge_with_id(
-        self, broadcast_info: BroadcastInfo, query_id: str, list_type: ListType
+            self, broadcast_info: BroadcastInfo, query_id: str, list_type: ListType
     ) -> None:
         """广播带查询ID的查询命令到其他服务器"""
         try:
             if not self.config.get_keys(
-                ["connector", "minecraft_bridge", "enable"], False
+                    ["connector", "minecraft_bridge", "enable"], False
             ):
                 return
 
@@ -596,7 +596,7 @@ class PlayerListSystem(BasicSystem):
             self.logger.error(f"广播带ID的查询命令失败: {e}")
 
     async def _handle_list_command_local(
-        self, broadcast_info: BroadcastInfo, list_type: ListType
+            self, broadcast_info: BroadcastInfo, list_type: ListType
     ) -> None:
         """处理本地列表命令"""
         try:
@@ -635,12 +635,12 @@ class PlayerListSystem(BasicSystem):
             )
 
     async def _send_response_to_bridge(
-        self, broadcast_info: BroadcastInfo, query_id: str, list_type: ListType
+            self, broadcast_info: BroadcastInfo, query_id: str, list_type: ListType
     ) -> None:
         """发送响应给主服务器"""
         try:
             if not self.config.get_keys(
-                ["connector", "minecraft_bridge", "enable"], False
+                    ["connector", "minecraft_bridge", "enable"], False
             ):
                 return
 
@@ -683,10 +683,10 @@ class PlayerListSystem(BasicSystem):
             self.logger.error(f"发送响应到 bridge 失败: {e}")
 
     def _format_separated_list(
-        self,
-        real_players: List[str],
-        bots: List[str],
-        list_type: ListType = ListType.PLAYERS,
+            self,
+            real_players: List[str],
+            bots: List[str],
+            list_type: ListType = ListType.PLAYERS,
     ) -> str:
         """格式化已分离的玩家和假人列表输出（用于 leaves/lophine 端）"""
         try:
@@ -694,7 +694,7 @@ class PlayerListSystem(BasicSystem):
                 if not real_players:
                     return self.get_tr("players_empty")
                 real_players.sort()
-                players_list = [f"{i+1}. {p}" for i, p in enumerate(real_players)]
+                players_list = [f"{i + 1}. {p}" for i, p in enumerate(real_players)]
                 return self.get_tr(
                     "players_content",
                     count=len(real_players),
@@ -705,7 +705,7 @@ class PlayerListSystem(BasicSystem):
                 if not bots:
                     return self.get_tr("bots_empty")
                 bots.sort()
-                bots_list = [f"{i+1}. {b}" for i, b in enumerate(bots)]
+                bots_list = [f"{i + 1}. {b}" for i, b in enumerate(bots)]
                 return self.get_tr(
                     "bots_content", count=len(bots), bots="\n" + "\n".join(bots_list)
                 )
@@ -715,7 +715,7 @@ class PlayerListSystem(BasicSystem):
 
                 if real_players:
                     real_players.sort()
-                    players_list = [f"  {i+1}. {p}" for i, p in enumerate(real_players)]
+                    players_list = [f"  {i + 1}. {p}" for i, p in enumerate(real_players)]
                     result_parts.append(
                         self.get_tr(
                             "local_players_label",
@@ -728,7 +728,7 @@ class PlayerListSystem(BasicSystem):
 
                 if bots:
                     bots.sort()
-                    bots_list = [f"  {i+1}. {b}" for i, b in enumerate(bots)]
+                    bots_list = [f"  {i + 1}. {b}" for i, b in enumerate(bots)]
                     result_parts.append(
                         self.get_tr(
                             "local_bots_label",
@@ -751,7 +751,7 @@ class PlayerListSystem(BasicSystem):
             return ""
 
     def _format_player_list(
-        self, raw_result: str, list_type: ListType = ListType.PLAYERS
+            self, raw_result: str, list_type: ListType = ListType.PLAYERS
     ) -> str:
         """格式化玩家列表输出"""
         try:
@@ -782,7 +782,7 @@ class PlayerListSystem(BasicSystem):
                 if not real_players:
                     return self.get_tr("players_empty")
                 real_players.sort()
-                players_list = [f"{i+1}. {p}" for i, p in enumerate(real_players)]
+                players_list = [f"{i + 1}. {p}" for i, p in enumerate(real_players)]
                 return self.get_tr(
                     "players_content",
                     count=len(real_players),
@@ -793,7 +793,7 @@ class PlayerListSystem(BasicSystem):
                 if not bots:
                     return self.get_tr("bots_empty")
                 bots.sort()
-                bots_list = [f"{i+1}. {b}" for i, b in enumerate(bots)]
+                bots_list = [f"{i + 1}. {b}" for i, b in enumerate(bots)]
                 return self.get_tr(
                     "bots_content", count=len(bots), bots="\n" + "\n".join(bots_list)
                 )
@@ -803,7 +803,7 @@ class PlayerListSystem(BasicSystem):
 
                 if real_players:
                     real_players.sort()
-                    players_list = [f"  {i+1}. {p}" for i, p in enumerate(real_players)]
+                    players_list = [f"  {i + 1}. {p}" for i, p in enumerate(real_players)]
                     result_parts.append(
                         self.get_tr(
                             "local_players_label",
@@ -816,7 +816,7 @@ class PlayerListSystem(BasicSystem):
 
                 if bots:
                     bots.sort()
-                    bots_list = [f"  {i+1}. {b}" for i, b in enumerate(bots)]
+                    bots_list = [f"  {i + 1}. {b}" for i, b in enumerate(bots)]
                     result_parts.append(
                         self.get_tr(
                             "local_bots_label",
@@ -839,7 +839,7 @@ class PlayerListSystem(BasicSystem):
             return raw_result
 
     def parse_player_list(
-        self, player_list: str, colon_separator: str = ":", comma_separator: str = ","
+            self, player_list: str, colon_separator: str = ":", comma_separator: str = ","
     ) -> List[str]:
         """解析玩家列表字符串"""
         if not player_list:
@@ -865,12 +865,12 @@ class PlayerListSystem(BasicSystem):
             return []
 
     async def _broadcast_query_to_bridge(
-        self, broadcast_info: BroadcastInfo, list_type: ListType
+            self, broadcast_info: BroadcastInfo, list_type: ListType
     ) -> None:
         """Broadcast query command to other servers via bridge."""
         try:
             if not self.config.get_keys(
-                ["connector", "minecraft_bridge", "enable"], False
+                    ["connector", "minecraft_bridge", "enable"], False
             ):
                 return
 

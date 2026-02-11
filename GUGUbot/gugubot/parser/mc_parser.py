@@ -77,4 +77,3 @@ class MCParser(BasicParser):
             if re.match(pattern, content):
                 return True
         return False
-

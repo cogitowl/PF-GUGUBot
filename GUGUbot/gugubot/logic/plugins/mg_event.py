@@ -48,10 +48,10 @@ def create_on_mc_achievement(config: BotConfig, connector_manager: ConnectorMana
 
 
 async def broadcast_msg(
-    message: str,
-    config: BotConfig,
-    server: PluginServerInterface,
-    connector_manager: ConnectorManager,
+        message: str,
+        config: BotConfig,
+        server: PluginServerInterface,
+        connector_manager: ConnectorManager,
 ):
     await connector_manager.broadcast_processed_info(
         ProcessedInfo(

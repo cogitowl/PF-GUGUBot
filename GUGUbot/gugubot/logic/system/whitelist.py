@@ -1,5 +1,6 @@
-from mcdreforged.api.types import PluginServerInterface
 from typing import Optional
+
+from mcdreforged.api.types import PluginServerInterface
 
 from gugubot.builder import MessageBuilder
 from gugubot.config.BotConfig import BotConfig
@@ -14,7 +15,7 @@ class WhitelistSystem(BasicSystem):
     """
 
     def __init__(
-        self, server: PluginServerInterface, config: Optional[BotConfig] = None
+            self, server: PluginServerInterface, config: Optional[BotConfig] = None
     ) -> None:
         """初始化白名单系统。"""
         super().__init__("whitelist", enable=False, config=config)
@@ -102,11 +103,11 @@ class WhitelistSystem(BasicSystem):
         return await self._handle_help(broadcast_info)
 
     def add_player(
-        self,
-        player_name: str,
-        force_online: bool = False,
-        force_offline: bool = False,
-        force_bedrock: bool = False,
+            self,
+            player_name: str,
+            force_online: bool = False,
+            force_offline: bool = False,
+            force_bedrock: bool = False,
     ) -> bool:
         """添加玩家到白名单
 
@@ -266,7 +267,7 @@ class WhitelistSystem(BasicSystem):
                 return True
 
             player_list = "\n".join(
-                f"{i+1}. {name}" for i, name in enumerate(sorted(whitelist))
+                f"{i + 1}. {name}" for i, name in enumerate(sorted(whitelist))
             )
             await self.reply(
                 broadcast_info,

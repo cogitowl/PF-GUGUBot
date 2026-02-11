@@ -4,8 +4,8 @@ import re
 import traceback
 from typing import Dict, List, Optional
 
-from gugubot.parser.basic_parser import BasicParser
 from gugubot.builder.qq_builder import ArrayHandler, CQHandler
+from gugubot.parser.basic_parser import BasicParser
 from gugubot.utils.types import BroadcastInfo, Source
 
 
@@ -122,7 +122,7 @@ class QQParser(BasicParser):
         try:
             message_data: Dict = json.loads(raw_message)
 
-            echo = message_data.get("echo")# 处理API调用的返回结果
+            echo = message_data.get("echo")  # 处理API调用的返回结果
             if echo:
                 self.connector.bot.function_return[echo] = message_data
                 return None
@@ -143,7 +143,8 @@ class QQParser(BasicParser):
                 message = message_data.get("raw_message", "")
                 parsed_message = CQHandler.parse(message) if isinstance(message, str) else ArrayHandler.parse(message)
 
-                source_id = message_data.get("user_id") if message_data.get("message_type") == 'private' else message_data.get("group_id")
+                source_id = message_data.get("user_id") if message_data.get(
+                    "message_type") == 'private' else message_data.get("group_id")
                 source_type = "private" if message_data.get("message_type") == 'private' else "group"
 
                 sender = message_data.get("sender", {})
@@ -175,7 +176,8 @@ class QQParser(BasicParser):
                 )
 
             else:
-                sub_type = message_data.get("request_type") if event_type == "request" else message_data.get("notice_type")
+                sub_type = message_data.get("request_type") if event_type == "request" else message_data.get(
+                    "notice_type")
 
                 broadcast_info = BroadcastInfo(
                     event_type=event_type,
@@ -221,7 +223,8 @@ class QQParser(BasicParser):
         friend_is_admin = self._friend_is_admin(message_data, event_type)
 
         if event_type == "message":
-            source_id = message_data.get("user_id") if message_data.get("message_type") == 'private' else message_data.get("group_id")
+            source_id = message_data.get("user_id") if message_data.get(
+                "message_type") == 'private' else message_data.get("group_id")
         else:
             # 对于 notice 和 request 类型，直接使用 user_id 或 group_id
             source_id = message_data.get("group_id") or message_data.get("user_id")
@@ -258,5 +261,3 @@ class QQParser(BasicParser):
             return True
 
         return False
-
-

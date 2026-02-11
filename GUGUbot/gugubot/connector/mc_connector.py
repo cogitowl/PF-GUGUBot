@@ -1,15 +1,15 @@
 import logging
 import traceback
-
 from typing import Any, Optional
 
-from mcdreforged.api.types import PluginServerInterface, Info
+from mcdreforged.api.types import Info, PluginServerInterface
 
+from gugubot.builder.mc_builder import McMessageBuilder
 from gugubot.config import BotConfig
 from gugubot.connector.basic_connector import BasicConnector
 from gugubot.parser.mc_parser import MCParser
-from gugubot.builder.mc_builder import McMessageBuilder
 from gugubot.utils.types import ProcessedInfo
+
 
 class MCConnector(BasicConnector):
     """Minecraft服务器连接器。
@@ -114,17 +114,16 @@ class MCConnector(BasicConnector):
                 if sender_player:
                     # 优先使用 Java 或基岩版的第一个名字
                     sender = (sender_player.java_name[0] if sender_player.java_name
-                             else sender_player.bedrock_name[0] if sender_player.bedrock_name
-                             else sender_player.name) or sender
+                              else sender_player.bedrock_name[0] if sender_player.bedrock_name
+                    else sender_player.name) or sender
 
                 if receiver:
                     receiver_player = player_manager.get_player(str(receiver))
                     if receiver_player:
                         # 优先使用 Java 或基岩版的第一个名字
                         receiver = (receiver_player.java_name[0] if receiver_player.java_name
-                                   else receiver_player.bedrock_name[0] if receiver_player.bedrock_name
-                                   else receiver_player.name) or receiver
-
+                                    else receiver_player.bedrock_name[0] if receiver_player.bedrock_name
+                        else receiver_player.name) or receiver
 
             custom_group_name = self.config.get_keys(["connector", "QQ", "permissions", "custom_group_name"], {})
             source = custom_group_name.get(source_id, source)
@@ -143,7 +142,7 @@ class MCConnector(BasicConnector):
             self.logger.error(f"{self.log_prefix} 发送消息失败: {error_msg}")
             raise
 
-    async def on_message(self, server:PluginServerInterface, info:Info) -> None:
+    async def on_message(self, server: PluginServerInterface, info: Info) -> None:
         """处理从Minecraft服务器接收的消息。
 
         Parameters

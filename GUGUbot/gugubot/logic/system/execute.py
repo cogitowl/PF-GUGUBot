@@ -153,7 +153,7 @@ class ExecuteSystem(BasicSystem):
                 )
 
             if not self.is_command(broadcast_info) or \
-                (not await self._is_admin(broadcast_info.sender_id) and not broadcast_info.is_admin):
+                    (not await self._is_admin(broadcast_info.sender_id) and not broadcast_info.is_admin):
                 return False
 
             # 执行 MC 原生命令
@@ -163,7 +163,8 @@ class ExecuteSystem(BasicSystem):
             # 提取命令内容
             command = content.replace(f"{command_prefix}{mcdr_cmd}", "", 1).strip()
             if not command:
-                await self.reply(broadcast_info, [MessageBuilder.text(self.get_tr("mcdr_instruction", command_prefix=command_prefix, mcdr=mcdr_cmd))])
+                await self.reply(broadcast_info, [MessageBuilder.text(
+                    self.get_tr("mcdr_instruction", command_prefix=command_prefix, mcdr=mcdr_cmd))])
                 return True
 
             # 检查是否包含 @<服务器名> 格式
@@ -187,7 +188,7 @@ class ExecuteSystem(BasicSystem):
                 )
 
             if not self.is_command(broadcast_info) or \
-                (not await self._is_admin(broadcast_info.sender_id) and not broadcast_info.is_admin):
+                    (not await self._is_admin(broadcast_info.sender_id) and not broadcast_info.is_admin):
                 return False
 
             # 执行 MCDR 命令
@@ -201,10 +202,10 @@ class ExecuteSystem(BasicSystem):
         return False
 
     async def _handle_execute_command(
-        self,
-        command: str,
-        broadcast_info: BroadcastInfo,
-        use_mcdr: bool = False
+            self,
+            command: str,
+            broadcast_info: BroadcastInfo,
+            use_mcdr: bool = False
     ) -> bool:
         """处理命令执行。
 
@@ -272,11 +273,11 @@ class ExecuteSystem(BasicSystem):
         return True
 
     async def _send_command_via_bridge(
-        self,
-        command: str,
-        broadcast_info: BroadcastInfo,
-        target_server: str,
-        use_mcdr: bool = False
+            self,
+            command: str,
+            broadcast_info: BroadcastInfo,
+            target_server: str,
+            use_mcdr: bool = False
     ) -> bool:
         """通过 bridge 发送命令到指定服务器。
 
@@ -344,7 +345,7 @@ class ExecuteSystem(BasicSystem):
                 server=broadcast_info.server,
                 logger=broadcast_info.logger,
                 event_sub_type=broadcast_info.event_sub_type,
-                target={target_server: broadcast_info.event_sub_type} # 指定目标服务器
+                target={target_server: broadcast_info.event_sub_type}  # 指定目标服务器
             )
 
             # 通过 bridge 发送消息
@@ -368,7 +369,6 @@ class ExecuteSystem(BasicSystem):
                 [MessageBuilder.text(self.get_tr("bridge_execute_failed", error=str(e)))]
             )
             return True
-
 
     async def _is_admin(self, sender_id) -> bool:
         """检查是否是管理员"""

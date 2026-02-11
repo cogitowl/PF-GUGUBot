@@ -19,7 +19,7 @@ class TodoSystem(BasicConfig, BasicSystem):
     """
 
     def __init__(
-        self, server: PluginServerInterface, config: Optional[BotConfig] = None
+            self, server: PluginServerInterface, config: Optional[BotConfig] = None
     ) -> None:
         """初始化待办系统。"""
         BasicSystem.__init__(self, "todo", enable=True, config=config)

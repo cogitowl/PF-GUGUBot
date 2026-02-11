@@ -186,7 +186,7 @@ class BridgeConnector(BasicConnector):
                         time.sleep(self.reconnect)
 
                         if not self.enable or (
-                            self.ws_client and self.ws_client.is_connected()
+                                self.ws_client and self.ws_client.is_connected()
                         ):
                             return
 
@@ -238,8 +238,8 @@ class BridgeConnector(BasicConnector):
             message_data = json.loads(message) if isinstance(message, str) else message
 
             if (
-                isinstance(message_data, dict)
-                and message_data.get("type") == "server_shutdown"
+                    isinstance(message_data, dict)
+                    and message_data.get("type") == "server_shutdown"
             ):
                 return
 

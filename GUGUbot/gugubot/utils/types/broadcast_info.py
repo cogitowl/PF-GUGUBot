@@ -2,7 +2,6 @@ from dataclasses import dataclass, field
 from logging import Logger
 from typing import Any, List, Literal, Optional, Union
 
-
 from mcdreforged.api.types import PluginServerInterface
 
 from gugubot.utils.types.source import Source

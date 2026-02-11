@@ -28,7 +28,7 @@ class GeneralHelpSystem(BasicSystem):
     """
 
     def __init__(
-        self, server: PluginServerInterface, config: Optional[BotConfig] = None
+            self, server: PluginServerInterface, config: Optional[BotConfig] = None
     ) -> None:
         """初始化通用帮助系统。"""
         super().__init__("general_help", enable=True, config=config)

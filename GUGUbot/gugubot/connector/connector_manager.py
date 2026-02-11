@@ -23,7 +23,7 @@ class ConnectorManager:
     """
 
     def __init__(
-        self, server, bot_config: BotConfig, logger: Optional[logging.Logger] = None
+            self, server, bot_config: BotConfig, logger: Optional[logging.Logger] = None
     ) -> None:
         """初始化连接器管理器。
 
@@ -126,10 +126,10 @@ class ConnectorManager:
             raise
 
     async def broadcast_processed_info(
-        self,
-        message: ProcessedInfo,
-        include: Optional[List[str]] = None,
-        exclude: Optional[List[str]] = None,
+            self,
+            message: ProcessedInfo,
+            include: Optional[List[str]] = None,
+            exclude: Optional[List[str]] = None,
     ) -> Dict[str, Exception]:
         """向所有连接器广播消息。
 
@@ -184,7 +184,7 @@ class ConnectorManager:
         return failures
 
     async def _safe_send(
-        self, connector: BasicConnector, message: ProcessedInfo
+            self, connector: BasicConnector, message: ProcessedInfo
     ) -> None:
         """安全地向单个连接器发送消息。
 

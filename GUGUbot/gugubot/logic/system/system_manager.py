@@ -25,11 +25,11 @@ class SystemManager:
     """
 
     def __init__(
-        self,
-        server: PluginServerInterface,
-        logger: Optional[logging.Logger] = None,
-        connector_manager: Optional[ConnectorManager] = None,
-        config: Optional[BotConfig] = None,
+            self,
+            server: PluginServerInterface,
+            logger: Optional[logging.Logger] = None,
+            connector_manager: Optional[ConnectorManager] = None,
+            config: Optional[BotConfig] = None,
     ) -> None:
         """初始化系统管理器。
 
@@ -57,10 +57,10 @@ class SystemManager:
         return None
 
     def register_system(
-        self,
-        system: BasicSystem,
-        before: Optional[List[str]] = None,
-        after: Optional[List[str]] = None,
+            self,
+            system: BasicSystem,
+            before: Optional[List[str]] = None,
+            after: Optional[List[str]] = None,
     ) -> None:
         """添加一个新的系统实例。
 
@@ -133,10 +133,10 @@ class SystemManager:
         return False
 
     async def broadcast_command(
-        self,
-        broadcast_info: BroadcastInfo,
-        include: Optional[List[str]] = None,
-        exclude: Optional[List[str]] = None,
+            self,
+            broadcast_info: BroadcastInfo,
+            include: Optional[List[str]] = None,
+            exclude: Optional[List[str]] = None,
     ) -> bool:
         """向所有系统广播命令。
 
@@ -183,7 +183,7 @@ class SystemManager:
         return result
 
     async def _safe_process_broadcast_info(
-        self, system: BasicSystem, broadcast_info: BroadcastInfo
+            self, system: BasicSystem, broadcast_info: BroadcastInfo
     ) -> bool:
         """安全地向单个系统发送命令。
 

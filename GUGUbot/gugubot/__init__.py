@@ -37,7 +37,7 @@ async def on_load(server: PluginServerInterface, old) -> None:
     if config_path.exists():
         try:
             with server.open_bundled_file(
-                "gugubot/config/defaults/default_config.yml"
+                    "gugubot/config/defaults/default_config.yml"
             ) as file_handler:
                 default_config_content = file_handler.read().decode("utf-8")
             migrate_config_v1_to_v2(
@@ -251,7 +251,7 @@ async def on_server_startup(server: PluginServerInterface) -> None:
 
 
 async def on_server_stop(
-    server: PluginServerInterface, server_return_code: int
+        server: PluginServerInterface, server_return_code: int
 ) -> None:
     """服务器停止时的回调函数。"""
     try:
@@ -260,6 +260,5 @@ async def on_server_stop(
             await broadcast_server_stop(server, connector_manager, gugubot_config)
     except Exception as e:
         server.logger.error(f"[GUGUBot] 服务器停止通知失败: {e}")
-
 
 # +---------------------------------------------------------------------+
