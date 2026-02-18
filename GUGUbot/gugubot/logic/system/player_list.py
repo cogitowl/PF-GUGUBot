@@ -291,7 +291,10 @@ class PlayerListSystem(BasicSystem):
     def _parse_bot_list(self, raw_result: str) -> List[str]:
         """解析 /bot list 返回的假人列表
 
-        格式:
+        使用配置项 system.list.bot_list_pattern 的正则表达式逐行匹配，
+        第一个捕获组作为逗号分隔的假人名列表，不匹配的行自动跳过。
+
+        默认模式 ``\\):\\s*(.+)`` 适配 Carpet 格式:
             Total number: (1/10)
             world_the_end(0):
             world(1): bot1, bot2
@@ -301,23 +304,28 @@ class PlayerListSystem(BasicSystem):
         comma_separator = self.config.get_keys(
             ["system", "list", "comma_separator"], ","
         )
+        bot_list_pattern = self.config.get_keys(
+            ["system", "list", "bot_list_pattern"], r"\):\s*(.+)"
+        )
+
+        try:
+            compiled = re.compile(bot_list_pattern)
+        except re.error as e:
+            self.logger.warning(f"bot_list_pattern 正则编译失败: {e}，使用默认模式")
+            compiled = re.compile(r"\):\s*(.+)")
 
         for line in raw_result.strip().split("\n"):
             line = line.strip()
-            # 跳过总数行和空行
-            if not line or line.startswith("Total number"):
+            if not line:
                 continue
-            # 解析维度行: world(1): bot1, bot2
-            # 查找冒号后的假人列表
-            if "):" in line:
-                parts = line.split("):", 1)
-                if len(parts) == 2 and parts[1].strip():
-                    bot_names = [
-                        b.strip()
-                        for b in re.split(comma_separator, parts[1])
-                        if b.strip()
-                    ]
-                    bots.extend(bot_names)
+            match = compiled.search(line)
+            if match and match.group(1).strip():
+                bot_names = [
+                    b.strip()
+                    for b in re.split(comma_separator, match.group(1))
+                    if b.strip()
+                ]
+                bots.extend(bot_names)
 
         return bots
 
