@@ -88,10 +88,19 @@ class PlayerManager(BasicConfig):
     ) -> Player:
         """添加新玩家
 
-        Args:
-            name: str - 玩家名称
-            player_name: str - 玩家名称
-            is_bedrock: bool - 是否为基岩版玩家
+        Parameters
+        ----------
+        name : str
+            玩家名称
+        player_name : str
+            玩家名称
+        is_bedrock : bool
+            是否为基岩版玩家
+
+        Returns
+        -------
+        Player
+            这个玩家对应的 Player 实例
         """
         if name not in self._players:
             self._players[name] = Player(name=name)
@@ -114,21 +123,26 @@ class PlayerManager(BasicConfig):
         """
         通用的玩家查找函数
 
-        Args:
-            identifier: str - 玩家标识符（可以是名称、UUID或账号ID）
+        Parameters
+        ----------
+        identifier: str
+            玩家标识符（可以是名称、UUID或账号ID）
 
-        Returns:
-            Optional[Player] - 找到的玩家对象，如果未找到则返回None
+        Returns
+        -------
+        Optional[Player]
+            找到的玩家对象，如果未找到则返回None
 
-        Examples:
-            # 通过名称查找
-            player = manager.get_player("Steve")
+        Examples
+        --------
+        >>> # 通过名称查找
+        >>> player = manager.get_player("Steve")
 
-            # 通过UUID查找（Java版或基岩版）
-            player = manager.get_player("uuid-xxxxx")
+        >>> # 通过UUID查找（Java版或基岩版）
+        >>> player = manager.get_player("uuid-xxxxx")
 
-            # 通过关联账号查找
-            player = manager.get_player("discord-id")
+        >>> # 通过关联账号查找
+        >>> player = manager.get_player("discord-id")
         """
         # 1. 通过名称查找
         if identifier in self._players:
@@ -175,14 +189,19 @@ class PlayerManager(BasicConfig):
     ) -> bool:
         """检查玩家名是否已被其他用户绑定
 
-        Args:
-            player_name: str - 要检查的玩家名
-            current_user_id: str - 当前用户ID
-            source: str - 当前用户来源
-            is_bedrock: bool - 是否为基岩版玩家名
+        Parameters
+        ----------
+        player_name : str
+            要检查的玩家名
+        current_user_id : str
+            当前用户ID
+        source : str
+            当前用户来源
 
-        Returns:
-            bool - 如果已被其他用户绑定则返回True
+        Returns
+        -------
+        bool
+            如果已被其他用户绑定则返回True
         """
         for player in self._players.values():
             player_in_name = (
