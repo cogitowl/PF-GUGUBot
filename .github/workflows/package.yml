@@ -1,0 +1,48 @@
+name: Package GUGUbot
+
+on:
+  push:
+    paths:
+      - 'GUGUbot/**'
+    branches:
+      - main
+      - master
+  release:
+    types: [published]
+  workflow_dispatch:
+
+jobs:
+  package:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Read plugin version
+        id: meta
+        run: |
+          version=$(jq -r '.version' GUGUbot/mcdreforged.plugin.json)
+          echo "version=$version" >> "$GITHUB_OUTPUT"
+          echo "Plugin version: $version"
+
+      - name: Package .mcdr file
+        run: |
+          cd GUGUbot
+          zip -r "../gugubot-v${{ steps.meta.outputs.version }}.mcdr" . \
+            -x '*/__pycache__/*' \
+            -x '*.pyc'
+          cd ..
+          echo "Package size: $(du -h gugubot-v${{ steps.meta.outputs.version }}.mcdr | cut -f1)"
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: gugubot-v${{ steps.meta.outputs.version }}
+          path: gugubot-v${{ steps.meta.outputs.version }}.mcdr
+
+      - name: Upload to release
+        if: github.event_name == 'release'
+        uses: softprops/action-gh-release@v2
+        with:
+          files: gugubot-v${{ steps.meta.outputs.version }}.mcdr
