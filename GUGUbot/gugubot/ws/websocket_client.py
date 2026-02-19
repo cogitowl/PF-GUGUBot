@@ -103,6 +103,7 @@ class WebSocketClient:
         thread_name : str, optional
             监听线程名称
         suppress_origin : bool, optional
+            是否抑制 WebSocket 握手中的 Origin 头，默认 ``True``
         """
         self.logger.debug(f"正在连接到WebSocket服务器: {self.url}")
 
