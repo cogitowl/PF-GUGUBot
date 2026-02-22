@@ -26,7 +26,7 @@ class McMessageBuilder:
             )
         if sender is not None:
             rtext += (
-                RText(f" [{sender}]", color=RColor.gray)
+                RText(f" <{sender}>", color=RColor.white)
                 .set_hover_text(f"点击草稿 @{sender} 的消息")
                 .set_click_event(
                     action=RAction.suggest_command,
@@ -69,14 +69,14 @@ class McMessageBuilder:
             player_name = get_player_name(qq_id)
             if is_admin:
                 return (
-                    RText(f"[@{player_name}]", color=RColor.gray)
+                    RText(f"<@{player_name}>", color=RColor.gray)
                     .set_hover_text(f"点击草稿 @{player_name} 的消息")
                     .set_click_event(
                         action=RAction.suggest_command, value=f"[CQ:at,qq={qq_id}]"
                     )
                 )
             else:
-                return RText(f"[@{player_name}]", color=RColor.gray)
+                return RText(f"<@{player_name}>", color=RColor.gray)
 
         process_functions = {
             "text": lambda data: RText(
