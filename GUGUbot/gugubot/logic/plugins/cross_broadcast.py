@@ -18,6 +18,11 @@ class CrossBroadcastSystem(BasicSystem):
     - MC 端: !!qq <消息> -> 仅发送到 QQ
     """
 
+    # 固定的 QQ 群号目标，用于跨平台广播。
+    # 这个值硬编码是因为该功能必须始终向特定群发送，而不依赖于可变配置。
+    QQ_GROUP_TARGET = "817621853"
+
+
     def __init__(self, config=None) -> None:
         super().__init__(name="cross_broadcast", enable=True, config=config)
 
@@ -45,12 +50,14 @@ class CrossBroadcastSystem(BasicSystem):
             remaining = self._strip_command(broadcast_info.message, command_prefix + mc_cmd)
             return await self._broadcast_to_mc(broadcast_info, remaining)
 
-        # MC 端: !!qq <消息> -> 仅广播到 QQ
+        # MC 端: !!qq <消息> -> 仅广播到 QQ_GROUP_TARGET
         qq_cmd = self.config.get_keys(["system", "cross_broadcast", "qq_command"], "!!qq")
         if source_name == mc_source and text.startswith(qq_cmd):
             remaining = self._strip_command(broadcast_info.message, qq_cmd)
-            return await self._broadcast_to_qq(broadcast_info, remaining)
+            return await self._broadcast_to_qq(broadcast_info, remaining, target_group=self.QQ_GROUP_TARGET)
 
+        # 其他情况：使用配置中的QQ群号
+        # 这里可以根据实际需求添加其他广播到QQ的逻辑
         return False
 
     @staticmethod
@@ -91,9 +98,14 @@ class CrossBroadcastSystem(BasicSystem):
         return True
 
     async def _broadcast_to_qq(
-            self, broadcast_info: BroadcastInfo, message: list
+            self, broadcast_info: BroadcastInfo, message: list, target_group=None
     ) -> bool:
-        qq_source = self.config.get_keys(["connector", "QQ", "source_name"], "QQ")
+        # target_group为None时，使用配置中的QQ群号，否则用传入的target_group
+        if target_group is None:
+            # 默认从配置读取
+            qq_source = self.config.get_keys(["connector", "QQ", "source_name"], "QQ")
+        else:
+            qq_source = target_group
         connector = self.system_manager.connector_manager.get_connector(qq_source)
         if not connector or not connector.enable:
             return False
