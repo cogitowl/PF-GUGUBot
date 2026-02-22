@@ -19,14 +19,14 @@ class McMessageBuilder:
             sender_id: Optional[str] = None,
             receiver: Optional[str] = None,
     ) -> RText:
-        rtext = RText(f"[{group_name}]", color=RColor.gold)
+        rtext = RText(f"[{group_name}]", color=RColor.gray)
         if group_id is not None:
             rtext = rtext.set_hover_text(group_id).set_click_event(
                 action=RAction.copy_to_clipboard, value=group_id
             )
         if sender is not None:
             rtext += (
-                RText(f" [{sender}]", color=RColor.green)
+                RText(f" [{sender}]", color=RColor.gray)
                 .set_hover_text(f"点击草稿 @{sender} 的消息")
                 .set_click_event(
                     action=RAction.suggest_command,
@@ -34,12 +34,12 @@ class McMessageBuilder:
                 )
             )
         if receiver is not None:
-            rtext += RText(f"[@{receiver}]", color=RColor.aqua)
+            rtext += RText(f"[@{receiver}]", color=RColor.gray)
         rtext += RText(" ")
         if isinstance(forward_content, RTextBase):
             rtext += forward_content
         else:
-            rtext += RText(f"{forward_content}", color=RColor.white)
+            rtext += RText(f"{forward_content}", color=RColor.gray)
 
         return rtext
 
@@ -69,14 +69,14 @@ class McMessageBuilder:
             player_name = get_player_name(qq_id)
             if is_admin:
                 return (
-                    RText(f"[@{player_name}]", color=RColor.aqua)
+                    RText(f"[@{player_name}]", color=RColor.gray)
                     .set_hover_text(f"点击草稿 @{player_name} 的消息")
                     .set_click_event(
                         action=RAction.suggest_command, value=f"[CQ:at,qq={qq_id}]"
                     )
                 )
             else:
-                return RText(f"[@{player_name}]", color=RColor.aqua)
+                return RText(f"[@{player_name}]", color=RColor.gray)
 
         process_functions = {
             "text": lambda data: RText(
@@ -184,7 +184,7 @@ class McMessageBuilder:
             result = RText(f'[[CICode,url={image_link},name={summary or "图片"}]]')
 
         text = f"[图片:{summary}]" if summary else "[图片]"
-        result = RText(text, color=RColor.gold) if result is None else result
+        result = RText(text, color=RColor.gray) if result is None else result
 
         if image_previewer:
             result = result.set_hover_text(image_link).set_click_event(
